@@ -1,0 +1,28 @@
+{
+	"name": "AzureSqlDatabase1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "sqlserverharpalvaghela.database.windows.net",
+			"database": "projectdb",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "harpalsqladmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_key_vault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "azuresqldb-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,300 @@
+{
+	"name": "df_parents_table_files",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "wsp-synapse-harpalvaghela-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Customers"
+				},
+				{
+					"linkedService": {
+						"referenceName": "wsp-synapse-harpalvaghela-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Products"
+				},
+				{
+					"linkedService": {
+						"referenceName": "wsp-synapse-harpalvaghela-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Stores"
+				},
+				{
+					"linkedService": {
+						"referenceName": "wsp-synapse-harpalvaghela-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Agents"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "AzureSqlDatabase1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkCustomers"
+				},
+				{
+					"linkedService": {
+						"referenceName": "AzureSqlDatabase1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkProducts"
+				},
+				{
+					"linkedService": {
+						"referenceName": "AzureSqlDatabase1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkStores"
+				},
+				{
+					"linkedService": {
+						"referenceName": "AzureSqlDatabase1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkAgents"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FilterCustomers"
+				},
+				{
+					"name": "RempveDuplicates"
+				},
+				{
+					"name": "FilterProducts"
+				},
+				{
+					"name": "RemoveDuplicates2"
+				},
+				{
+					"name": "FilterStores"
+				},
+				{
+					"name": "RemoveDuplicates3"
+				},
+				{
+					"name": "FilterAgents"
+				},
+				{
+					"name": "RemoveDuplicates4"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "alterRow2"
+				},
+				{
+					"name": "alterRow3"
+				},
+				{
+					"name": "alterRow4"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as short,",
+				"          Name as string,",
+				"          Email as string,",
+				"          Address as string",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'project3',",
+				"     folderPath: 'bronze',",
+				"     fileName: 'Customers.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> Customers",
+				"source(output(",
+				"          ProductID as short,",
+				"          Name as string,",
+				"          Category as string,",
+				"          Price as double",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'project3',",
+				"     folderPath: 'bronze',",
+				"     fileName: 'Products.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> Products",
+				"source(output(",
+				"          StoreID as short,",
+				"          Location as string,",
+				"          Manager as string,",
+				"          OpenHours as string",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'project3',",
+				"     folderPath: 'bronze',",
+				"     fileName: 'Stores.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> Stores",
+				"source(output(",
+				"          AgentID as short,",
+				"          Name as string,",
+				"          Department as string,",
+				"          Shift as string",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'project3',",
+				"     folderPath: 'bronze',",
+				"     fileName: 'Agents.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> Agents",
+				"Customers filter(!isNull(CustomerID)) ~> FilterCustomers",
+				"FilterCustomers aggregate(groupBy(CustomerID),",
+				"     each(match(name!='CustomerID'), $$ = first($$))) ~> RempveDuplicates",
+				"Products filter(!isNull(ProductID)) ~> FilterProducts",
+				"FilterProducts aggregate(groupBy(ProductID),",
+				"     each(match(name!='ProductID'), $$ = first($$))) ~> RemoveDuplicates2",
+				"Stores filter(!isNull(StoreID)) ~> FilterStores",
+				"FilterStores aggregate(groupBy(StoreID),",
+				"     each(match(name!='StoreID'), $$ = first($$))) ~> RemoveDuplicates3",
+				"Agents filter(!isNull(AgentID)) ~> FilterAgents",
+				"FilterAgents aggregate(groupBy(AgentID),",
+				"     each(match(name!='AgentID'), $$ = first($$))) ~> RemoveDuplicates4",
+				"RempveDuplicates alterRow(upsertIf(1==1)) ~> alterRow1",
+				"RemoveDuplicates2 alterRow(upsertIf(1==1)) ~> alterRow2",
+				"RemoveDuplicates3 alterRow(upsertIf(1==1)) ~> alterRow3",
+				"RemoveDuplicates4 alterRow(upsertIf(1==1)) ~> alterRow4",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as integer,",
+				"          Name as string,",
+				"          Email as string,",
+				"          Address as string",
+				"     ),",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'Customers',",
+				"     insertable: false,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: true,",
+				"     keys:['CustomerID'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          CustomerID,",
+				"          Name,",
+				"          Email,",
+				"          Address",
+				"     )) ~> sinkCustomers",
+				"alterRow2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ProductID as integer,",
+				"          Name as string,",
+				"          Category as string,",
+				"          Price as decimal(10,2)",
+				"     ),",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'Products',",
+				"     insertable: false,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: true,",
+				"     keys:['ProductID'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          ProductID,",
+				"          Name,",
+				"          Category,",
+				"          Price",
+				"     )) ~> sinkProducts",
+				"alterRow3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          StoreID as integer,",
+				"          Location as string,",
+				"          Manager as string,",
+				"          OpenHours as string",
+				"     ),",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'Stores',",
+				"     insertable: false,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: true,",
+				"     keys:['StoreID'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          StoreID,",
+				"          Location,",
+				"          Manager,",
+				"          OpenHours",
+				"     )) ~> sinkStores",
+				"alterRow4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AgentID as integer,",
+				"          Name as string,",
+				"          Department as string,",
+				"          Shift as string",
+				"     ),",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'Agents',",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     deletable: false,",
+				"     upsertable: true,",
+				"     keys:['AgentID'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          AgentID,",
+				"          Name,",
+				"          Department,",
+				"          Shift",
+				"     )) ~> sinkAgents"
+			]
+		}
+	}
+}

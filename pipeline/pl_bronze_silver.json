@@ -1,0 +1,74 @@
+{
+	"name": "pl_bronze_silver",
+	"properties": {
+		"activities": [
+			{
+				"name": "DF_Parents_Tables",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_parents_table_files",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "DF_Dependent_Tables",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DF_Parents_Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_dependent_table_files",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DE_Project_3"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-04-28T22:40:42Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
