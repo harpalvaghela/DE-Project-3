@@ -55,3 +55,12 @@ Published the final dashboard to Microsoft Fabric Workspace.
 - Power BI "Top N" filtering and KPI visuals enhance dashboard clarity.
 - Business-focused views (Gold layer) simplify reporting for non-technical users.
 
+---------------------------------------------------------
+
+Connect with me on my profile below for more updates:
+
+LinkedIn: https://www.linkedin.com/in/harpalvaghela/
+
+Medium Blog: https://medium.com/@harpalvaghela
+
+Thank you
