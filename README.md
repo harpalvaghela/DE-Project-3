@@ -7,29 +7,25 @@ The goal is to create a scalable, clean, and analytics-ready data pipeline using
 
 ### 🛠️ Technologies Used
 
-Azure Data Lake Gen2 (Storage)
-
-Azure Synapse Analytics (Pipelines and SQL Pools)
-
-Azure SQL Database
-
-Azure Key Vault (Secrets Management)
-
-Power BI (Visualization & Dashboarding)
+- Azure Data Lake Gen2 (Storage)
+- Azure Synapse Analytics (Pipelines and SQL Pools)
+- Azure SQL Database
+- Azure Key Vault (Secrets Management)
+- Power BI (Visualization & Dashboarding)
 
 ### 🧩 Project Steps
 
 1. Data Ingestion
 
-Created /bronze/ folder in ADLS Gen2 and uploaded raw CSV files.
-Set up Synapse pipelines to ingest data into the Bronze layer. 
-Connected Azure SQL Database using Azure Key Vault for secure credentials.
+- Created /bronze/ folder in ADLS Gen2 and uploaded raw CSV files.
+- Set up Synapse pipelines to ingest data into the Bronze layer. 
+- Connected Azure SQL Database using Azure Key Vault for secure credentials.
 
 2. Data Transformation (Bronze ➔ Silver Layer)
    
-Built dataflows in Synapse to clean and standardize data.
-Applied filters, aggregation (to remove duplicates), and alter row transformations.
-Loaded cleaned data into staging tables (Silver layer) in Azure SQL Database.
+- Built dataflows in Synapse to clean and standardize data.
+- Applied filters, aggregation (to remove duplicates), and alter row transformations.
+- Loaded cleaned data into staging tables (Silver layer) in Azure SQL Database.
 
 3. Data Modeling (Silver ➔ Gold Layer)
 
@@ -44,9 +40,8 @@ These views provided clean, business-ready data models for analysis.
 
 4. Reporting & Dashboarding
 
-Connected Power BI to Azure SQL Database (Import Mode).
-
-Published the final dashboard to Microsoft Fabric Workspace.
+- Connected Power BI to Azure SQL Database (Import Mode).
+- Published the final dashboard to Microsoft Fabric Workspace.
 
 ### 📈 Key Learnings
 
