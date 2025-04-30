@@ -5,6 +5,12 @@
 This project builds a Customer 360 view by integrating multiple sources such as online transactions, in-store purchases, customer service interactions, and loyalty programs.
 The goal is to create a scalable, clean, and analytics-ready data pipeline using Azure services and Power BI.
 
+
+---
+### ETL Workflow
+![ETLWorkflow](./ETLWorkflow.png)
+
+---
 ### 🛠️ Technologies Used
 
 - Azure Data Lake Gen2 (Storage)
