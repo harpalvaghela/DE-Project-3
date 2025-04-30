@@ -31,10 +31,11 @@ The goal is to create a scalable, clean, and analytics-ready data pipeline using
 
 Created 4 analytical views:
 
-- View_AverageOrderValue
-- View_CustomerSegmentation
-- View_PeakTimes
-- View_AgentPerformance
+- View_1_InStoreAverageOrderValue
+- View_1_OTAverageOrderValue
+- View_2_CustomerSegmentation
+- View_3_PeakTimes
+- View_4_AgentPerformance
 
 These views provided clean, business-ready data models for analysis.
 
