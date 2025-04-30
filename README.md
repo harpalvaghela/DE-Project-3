@@ -69,6 +69,8 @@ Connect with me on my profile below for more updates:
 
 LinkedIn: https://www.linkedin.com/in/harpalvaghela/
 
+Website: https://www.harpalvaghela.com
+
 Medium Blog: https://medium.com/@harpalvaghela
 
 Thank you
