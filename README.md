@@ -44,6 +44,9 @@ These views provided clean, business-ready data models for analysis.
 - Connected Power BI to Azure SQL Database (Import Mode).
 - Published the final dashboard to Microsoft Fabric Workspace.
 
+### Dashboard
+![Dashboard](./Dashboard.png)
+
 ### 📈 Key Learnings
 
 - Structured layering: Bronze ➔ Silver ➔ Gold improves data quality and maintainability.
