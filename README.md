@@ -13,6 +13,8 @@ The goal is to create a scalable, clean, and analytics-ready data pipeline using
 - Azure Key Vault (Secrets Management)
 - Power BI (Visualization & Dashboarding)
 
+---
+
 ### 🧩 Project Steps
 
 1. Data Ingestion
@@ -43,10 +45,11 @@ These views provided clean, business-ready data models for analysis.
 
 - Connected Power BI to Azure SQL Database (Import Mode).
 - Published the final dashboard to Microsoft Fabric Workspace.
-
+---
 ### Dashboard
 ![Dashboard](./Dashboard.png)
 
+---
 ### 📈 Key Learnings
 
 - Structured layering: Bronze ➔ Silver ➔ Gold improves data quality and maintainability.
@@ -54,7 +57,7 @@ These views provided clean, business-ready data models for analysis.
 - Power BI "Top N" filtering and KPI visuals enhance dashboard clarity.
 - Business-focused views (Gold layer) simplify reporting for non-technical users.
 
----------------------------------------------------------
+---
 
 Connect with me on my profile below for more updates:
 
